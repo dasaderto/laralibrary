@@ -49,34 +49,68 @@
                 <button type="submit" class="btn btn-primary my-2 my-sm-0">Поиск</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>
+                            @guest
+                                Войти
+                            @else
+                                Здравствуйте, {{\Illuminate\Support\Facades\Auth::user()->name}}
+                            @endguest
+                        </b> <span class="caret"></span>
+                    </a>
+                    <ul id="login-dp" class="dropdown-menu">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @if (isset($errors) && count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    @guest
+                                        <form method="POST" action="{{ route('login') }}" id="login-nav">
+                                            @csrf
+                                                <div class="form-group">
+                                                    <i class='fa fa-user'></i>
+                                                    <label  for="authlogin">Логин</label>
+                                                    <input type="text" class="form-control" id="authlogin" placeholder="Логин" name="name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <i class='fa fa-unlock-alt'></i>
+                                                    <label  for="pass">Пароль</label>
+                                                    <input type="password" class="form-control" id="pass" placeholder="Пароль" name="password" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                                        <label class="form-check-label" for="remember">
+                                                            {{ __('Запомнить меня') }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" >
+                                                    <button type="submit" class="btn btn-primary btn-block" id="authbtn" style="margin-top:5%;">Войти <i class="fa fa-sign-in"></i></button>
+                                                </div>
+                                        </form>
+                                    @else
+                                        <form method="POST" action="{{ route('logout') }}" id="login-nav">
+                                            @csrf
+                                            <div class="form-group" >
+                                                <button type="submit" name="out" class="btn btn-primary btn-block" style='margin-top:5%;'>Выйти <i class="fa fa-sign-out"></i></button>
+                                            </div>
+                                        </form>
+                                    @endguest
+
+                                </div>
+                            </div>
                         </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

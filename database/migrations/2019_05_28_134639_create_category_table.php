@@ -17,7 +17,7 @@ class CreateCategoryTable extends Migration
             $table->increments('id');
             
             $table->string('name');//Категория книг
-            $table->string('slug');
+//            $table->string('slug');
             // $table->integer('rank');
 
             $table->timestamps();

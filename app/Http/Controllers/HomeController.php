@@ -27,11 +27,9 @@ class HomeController extends Controller
     {
 
         $books = Book::offset(0)->limit(3)->get();
-        $categories = Category::offset(0)->limit(5)->get();
 
         return view('index',[
             'books'=>$books,
-            'categories'=>$categories,
         ]);
     }
 }

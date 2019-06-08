@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin/register';
 
     /**
      * Create a new controller instance.
@@ -48,11 +48,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $messages=[
+            "reg_login.required" => "Введите логин!!!",
+            "reg_login.unique" => "Логин занят...",
+            "reg_login.string" => "Логин должен быть строкой",
+            "role.required" => "Выберите роль пользователя",
+            "role.integer" => "Код изменен, повторите попытку позже",
+            "role.min" => "Код изменен, повторите попытку позже",
+            "role.max" => "Код изменен, повторите попытку позже",
+            "reg_password.required" => "Введите пароль!!!",
+        ];
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'reg_login' => ['required', 'string', 'max:255','unique:users,name'],
+            'role' => ['required', 'integer', 'min:1', 'max:3'],
+            'reg_password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],$messages);
     }
 
     /**
@@ -64,9 +75,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $data['reg_login'],
+            'role' => $data['role'],
+            'password' => Hash::make($data['reg_password']),
         ]);
     }
 }

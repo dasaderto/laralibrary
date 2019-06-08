@@ -38,7 +38,6 @@ class BookController extends Controller
             'name'          => 'required|min:2|max:255',
             'author'        => 'required|min:2|max:255',
             'category_id'   => 'required|max:10',
-            'date'          => 'required|date',
             'class'         => 'required|max:255',
             'image'         => 'max:255',
             'about'         => 'required|max:65535',
@@ -51,7 +50,6 @@ class BookController extends Controller
         $book->name = $request->name;
         $book->author = $request->author;
         $book->category_id = $request->category_id;
-        $book->date = $request->date;
         $book->class = $request->class;
         $book->image = $request->image;
         $book->about = $request->about;
@@ -80,7 +78,6 @@ class BookController extends Controller
             'name'          => 'required|min:2|max:255',
             'author'        => 'required|min:2|max:255',
             'category_id'   => 'required|max:10',
-            'date'          => 'required|date',
             'class'         => 'required|max:255',
             'image'         => 'max:255',
             'about'         => 'required|max:65535',
@@ -93,7 +90,6 @@ class BookController extends Controller
         $book->name = $request->name;
         $book->author = $request->author;
         $book->category_id = $request->category_id;
-        $book->date = $request->date;
         $book->class = $request->class;
         $book->image = $request->image;
         $book->about = $request->about;
