@@ -32,4 +32,15 @@ class HomeController extends Controller
             'books'=>$books,
         ]);
     }
+
+    public function search($search, Book $book){
+
+        $books = $book->join('categories', 'books.category_id', '=', 'categories.id')
+                      ->where('books.name','LIKE', "%".$search."%")
+                      ->orWhere('author','LIKE', "%".$search."%")
+                      ->orWhere('categories.name','LIKE', "%".$search."%")
+                      ->get();
+
+        return $books;
+    }
 }

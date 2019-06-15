@@ -19,19 +19,23 @@ Route::group(['namespace' => 'Auth'], function() {
 
     Route::post('/login', 'LoginController@login')->name('login');
     Route::post('/logout', 'LoginController@logout')->name('logout');
-
-});
-
-Route::group(['prefix' => '/admin', 'namespace' => 'Admin'/*, 'middleware' => 'auth'*/], function() {
-    
-    Route::get('/', 'AdminController@index')->name('admin.index');
     Route::get('/register', function () {
         return view('admin.panel.registration');
-    },['as' => 'admin']);
-    Route::post('/register', 'Auth\RegisterController@register',['as' => 'admin']);
+    });
+    Route::post('/register', 'RegisterController@register');
+});
+
+Route::get('/search/{search}', 'HomeController@search');
+
+Route::group(['prefix' => '/admin', 'namespace' => 'Admin' /*, 'middleware' => 'auth'*/], function() {
+    
+    Route::get('/', 'AdminController@index')->name('admin.index');
 
     Route::resource('/category', 'CategoryController', ['as' => 'admin']);
     Route::resource('/book', 'BookController', ['as' => 'admin']);
+
+    Route::get("/book/page/{page}",'BookController@index',['as'=>'admin']);
+
 });
 
 Route::group(['prefix' => '/upload', 'namespace' => 'Admin'/*, 'middleware' => 'auth'*/], function() {

@@ -1,16 +1,12 @@
-@extends('admin.layouts.app')
+@extends('layouts.userLayout')
 
 @section('content')
-<div>
-    <div class="row">
-        <div class="col-md-12 admin-form">
-            <h1 class="text-center">Создание книги</h1>
-            <form action="{{ route('admin.book.store') }}" method="POST">
-                @csrf
-                @include('admin.books.partials.form')
-            </form>
+    <div class="content">
+        <div class="title categoryttl">Загрузка Книг</div>
+        <div class="my-form__control">
+            @include('admin.books.partials.showErrors')
+
+            @include('admin.books.partials.form')
         </div>
     </div>
-</div>
-
 @endsection

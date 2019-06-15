@@ -12,7 +12,15 @@ body{
   background-position: center;
 /*   background-size: cover; */
   background-attachment: fixed;
+
+  position: relative;
+  min-height:100vh;
 }
+
+[hidden] {
+    display: none !important;
+}
+
 .content{
   margin-bottom: 2rem;
   margin-left:-10px;
@@ -358,12 +366,19 @@ a, #m a:hover, .r a:hover {
 .sidecont ul a{
   color:black;
 }
-.registration{
-  padding: 2% 13%;
+.registration, .my-form__control{
+  padding: 2% 10%;
 }
 .librarian_add{
   padding: 2% 10%;
 }
+
+
+
+p.msg{
+    margin: 3% 0;
+}
+
 ul {
   list-style: none;
 }
@@ -405,7 +420,6 @@ margin-top: -1rem; */
   background-color: white;
 }
 
-
 .user-btn button{
   margin: 1% 0%;
 }
@@ -427,4 +441,12 @@ footer a{
     padding: 0 25px 25px;
     background: #fff;
     margin-bottom: 25px;
+}
+
+table th{
+    white-space: nowrap;
+}
+
+table tbody tr td:first-child{
+    text-align: center;
 }

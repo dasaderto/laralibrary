@@ -27,10 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
 
         view()->composer('layouts.userLayout',function($view){
-           $view->with('categories',Category::all());
+           $view->with('categories',Category::limit(10)->get());
         });
         view()->composer('admin.layouts.app',function($view){
-           $view->with('categories',Category::all());
+           $view->with('categories',Category::limit(10)->get());
         });
     }
 }

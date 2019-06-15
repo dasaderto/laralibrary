@@ -1,37 +1,88 @@
-<div class="form-group">
-    <label>Название</label>
-    @include('form_fields.text', ['name' => 'name', 'value' => $book->name])
-</div>
-<div class="form-group">
-    <label>Автор</label>
-    @include('form_fields.text', ['name' => 'author', 'value' => $book->author])
-</div>
-<div class="form-group">
-    <label>Категория</label>
-    @include('form_fields.select', ['name' => 'category_id', 'values' => $categories, 'saved_value' => $book->category_id])
-</div>
-<div class="form-group">
-    <label>Дата издания</label>
-    @include('form_fields.text', ['name' => 'date', 'value' => $book->date])
-</div>
-<div class="form-group">
-    <label>Клаcс</label>
-    @include('form_fields.text', ['name' => 'class', 'value' => $book->class])
-</div>
-<div class="form-group">
-    <label>Изображение</label>
-    @include('form_fields.text', ['name' => 'image', 'value' => $book->image])
-</div>
-<div class="form-group">
-    <label>Ссылка</label>
-    @include('form_fields.text', ['name' => 'file', 'value' => $book->file])
-</div>
-<div class="form-group">
-    <label>book_access</label>
-    @include('form_fields.text', ['name' => 'book_access', 'value' => $book->book_access])
-</div>
-<div class="form-group">
-    <label>Описание</label>
-    @include('form_fields.textarea', ['name' => 'about', 'value' => $book->about])
-</div>
-<button type="submit" class="btn btn-primary">Сохранить</button>
+<form action="{{ route('admin.book.store') }}" method="POST" enctype='multipart/form-data' id='uploadForm'>
+    @csrf
+
+    <div class="form-group">
+        <label for="bookname" class="control-label">Введите название книги</label>
+        @include('form_fields.text', [
+            'name' => 'bookname',
+            'value' => '',
+            'id'=>'bookname',
+            'required =>true',
+            'placeholder'=>'Введите название'
+        ])
+    </div>
+    <div class="form-group">
+        <label for="fileauthor" class="control-label">Введите автора (Пушкин А.С.)</label>
+        @include('form_fields.datalist', [
+            'list' => 'fileauthor',
+            'name' => 'fileauthor',
+            'id'=>'fileauthor',
+            'required '=> 'true',
+            'autocomplete' => 'off',
+            'placeholder'=>'Введите автора',
+            'value' => '',
+            'values' => $authors,
+            'data' => ''
+        ])
+    </div>
+    <div class="form-group">
+        <label for="category">Выберите категорию или добавьте свою.(Не допустите ошибку при вводе, будет создана новая категория)</label>
+        @include('form_fields.datalist', [
+            'list' => 'downloadcat',
+            'name' => 'downloadcat',
+            'id'=>'downloadcat',
+            'required '=> 'true',
+            'autocomplete' => 'off',
+            'placeholder'=>'Введите категорию',
+            'value' => '',
+            'values' => $categories,
+            'data' => 'name',
+        ])
+    </div>
+    <div class="form-group">
+        <label for="class">Для кого предназначена?</label>
+        @include('form_fields.datalist', [
+            'list' => 'class',
+            'name' => 'class',
+            'id'=>'class',
+            'required '=> 'true',
+            'autocomplete' => 'off',
+            'placeholder'=>'Выберите класс',
+            'values' => $classes,
+            'data' => '',
+        ])
+    </div>
+    <div class="form-group">
+        <label for="level">Выберите уровень доступа</label>
+        <select name="level" class="form-control">
+            <option value="2">Доступна только зарегистрированным пользователям</option>
+            <option value="1">Доступна всем</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="fileimage">Выберите изображение</label>
+                @include('form_fields.file', ['name' => 'fileimage','class'=> 'fileimage'])
+            </div>
+            <div class="col-md-6">
+                <label for="filename">Выберите файл</label>
+                @include('form_fields.file', ['name' => 'filename','class'=> 'filename'])
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="comment">Небольшое описание:</label>
+        @include('form_fields.textarea', [
+            'name' => 'about',
+            'id'=>'comment',
+            'placeholder'=>'Введите небольшое описание',
+        ])
+    </div>
+    <div class="form-group text-center">
+        <b><span id='userhelp'></span></b>
+    </div>
+    <div class="form-group text-center">
+        <button type="submit" name="download" class="btn btn-primary" id="downbtn"><i class="fa fa-upload"></i> Загрузить</button>
+    </div>
+</form>

@@ -19,21 +19,20 @@
             @endif
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-
                 <div class="form-group">
                     <label for="reg_login" class="control-label">Введите логин</label>
-                    <input type="text" name='reg_login' minlength="3" maxlength="15" class="form-control" id="login" placeholder="Введите логин" required>
+                    <input type="text" name='reg_login' class="form-control" placeholder="Введите логин" autocomplete="false" required>
                     <span class="help-block loginerror"></span>
                 </div>
                 <div class="form-group">
                     <label for="reg_password" class="control-label">Введите пароль</label>
                     <div>
-                        <input type="password" data-toggle="validator" name='reg_password' data-minlength="6" class="form-control" id="reg_password" placeholder="Пароль" required>
+                        <input type="password" data-toggle="validator" name='reg_password' autocomplete="false" class="form-control" placeholder="Пароль" required>
                         <span class="help-block passerror"></span>
                     </div>
                     <div>
-                        <label for="password2" class="control-label">Повторите пароль пароль</label>
-                        <input type="password" name='reg_password_confirmation' class="form-control" id="password2" placeholder="Повторите пароль" required>
+                        <label for="password2" class="control-label">Повторите пароль</label>
+                        <input type="password" name='reg_password_confirmation' class="form-control" placeholder="Повторите пароль" required>
                         <div class="help-block condoerror"></div>
                     </div>
                 </div>
