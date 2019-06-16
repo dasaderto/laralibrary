@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -33,14 +35,19 @@ class HomeController extends Controller
         ]);
     }
 
-    public function search($search, Book $book){
+    public function search(Request $request, Book $books){
 
-        $books = $book->join('categories', 'books.category_id', '=', 'categories.id')
-                      ->where('books.name','LIKE', "%".$search."%")
-                      ->orWhere('author','LIKE', "%".$search."%")
-                      ->orWhere('categories.name','LIKE', "%".$search."%")
+        $searchQuery = $request->get('search_list');
+
+        $searchResult = $books->select('books.*','categories.name as categoryName')
+                      ->join('categories', 'books.category_id', '=', 'categories.id')
+                      ->where('books.name','LIKE', "%".$searchQuery."%")
+                      ->orWhere('author','LIKE', "%".$searchQuery."%")
+                      ->orWhere('categories.name','LIKE', "%".$searchQuery."%")
                       ->get();
 
-        return $books;
+        return view('user.search',[
+            'searchResult'=> $searchResult,
+        ]);
     }
 }

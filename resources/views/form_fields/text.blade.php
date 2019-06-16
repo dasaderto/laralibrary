@@ -6,4 +6,5 @@
        placeholder = "{{ $placeholder }}"
        id = {{ $id ?? '' }}
        {{ $required ?? 'required' }}
+       {{ $autocomplete ?? 'autocomplete = '.$autocomplete }}
        >

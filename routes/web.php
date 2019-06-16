@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::post('/register', 'RegisterController@register');
 });
 
-Route::get('/search/{search}', 'HomeController@search');
+Route::get('/search', 'HomeController@search')->name('user.search');
 
 Route::group(['prefix' => '/admin', 'namespace' => 'Admin' /*, 'middleware' => 'auth'*/], function() {
     

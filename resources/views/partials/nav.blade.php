@@ -8,12 +8,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">MyLib</a>
+            <a class="navbar-brand" href="{{ route('home') }}">MyLib</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Главная</a></li>
+                <li><a href="{{ route('home') }}">Главная</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle hidden-sm hidden-xs" data-toggle="dropdown">Жанры<span class="caret"></span></a>
@@ -41,10 +41,16 @@
                 <li><a href="#">Загрузка файла</a></li>
                 <li><a href="{{ route('admin.index') }}">Админка</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search" action="/search/" method="GET">
+            <form class="navbar-form navbar-left" role="search" action="/search" method="GET">
                 <div class="form-group">
-                    <input type="text" name="search_list" class="form-control" placeholder="Поиск..." size='20' autocomplete=off required minlength="3" maxlength="15">
-                    <input type="hidden" name="page" value="1">
+                    @include('form_fields.text', [
+                        'name' => 'search_list',
+                        'value' => '',
+                        'id'=>'bookname',
+                        'required =>true',
+                        'placeholder'=>'Поиск...',
+                        'autocomplete' => 'off',
+                    ])
                 </div>
                 <button type="submit" class="btn btn-primary my-2 my-sm-0">Поиск</button>
             </form>
