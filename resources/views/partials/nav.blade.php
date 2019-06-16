@@ -38,8 +38,14 @@
                 <li class="hidden-md hidden-lg"><a href="#">Авторы</a></li>
                 <li class="hidden-md hidden-lg"><a href="#">Категории</a></li>
                 <li><a href="#">О системе</a></li>
-                <li><a href="#">Загрузка файла</a></li>
-                <li><a href="{{ route('admin.index') }}">Админка</a></li>
+                @role('admin')
+                    <li><a href="#">Загрузка файла</a></li>
+                    <li><a href="{{ route('admin.index') }}">Админка</a></li>
+                @else
+                    @role('teacher')
+                        <li><a href="#">Загрузка файла</a></li>
+                    @endrole
+                @endrole
             </ul>
             <form class="navbar-form navbar-left" role="search" action="/search" method="GET">
                 <div class="form-group">

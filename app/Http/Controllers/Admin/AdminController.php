@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Students;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -87,5 +88,44 @@ class AdminController extends Controller
         }
 
         return Redirect::to('/upload');
+    }
+
+    public function studentsAppend(Request $request){
+
+        $messages = [
+            "stud_class.required" => "Поле Класс студента обязательно для заполнения",
+            "stud_class.regex" => "Не верный формат поля класса. Пример: '10 класс' или '10' ",
+            "stud_class.required" => "Минимальный класс ученика - 1",
+            "stud_count.required" => "Введите класс ученика",
+            "stud_count.integer" => "Количество учеников задается числом Пример: '-10' при убывании, '10' при поступлении.",
+            "addDate.required" => "Введите год поступления",
+            "addDate.date_format" => "Не верный формат Даты. Пример: '2019'",
+        ];
+
+        Validator::make($request->all(),[
+            'stud_class' => 'required|regex:/^([0-9]+)([ а-яёa-z]*)/ui|min:1',
+            'stud_count' => 'required|integer',
+            'addDate'    => 'required|date_format:Y'
+        ],$messages)->validate();
+
+        $students = Students::firstOrCreate(array('class'=>$request->stud_class));
+
+        if((($students->quantity)+($request->stud_count))<0){
+            Session::flash('message', 'Количество удаляемых учеников больше общего количества. Проверьте введенные данные');
+            Session::flash('msg_type', 'error');
+        }else{
+            $students->quantity+=$request->stud_count;
+            $students->date = $request->addDate;
+
+            if($students->save()){
+                Session::flash('message', 'Данные успешно добавлены');
+                Session::flash('msg_type', 'success');
+            }else{
+                Session::flash('message', 'Произошла ошибка, повторите еще раз!');
+                Session::flash('msg_type', 'error');
+            }
+        }
+
+        return Redirect::to('admin/students/append');
     }
 }

@@ -8,7 +8,8 @@
             'value' => '',
             'id'=>'bookname',
             'required =>true',
-            'placeholder'=>'Введите название'
+            'placeholder'=>'Введите название',
+            'autocomplete'=>false,
         ])
     </div>
     <div class="form-group">

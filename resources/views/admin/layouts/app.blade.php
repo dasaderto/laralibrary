@@ -26,13 +26,13 @@
                             </div>
                             <div class="sidecont">
                                 <ul class="nav nav-pills nav-stacked left-menu" id='accordion'>
-                                    <li ><a href="#">Регистрация пользователей</a></li>
-                                    <li ><a href="#">Добавление поступающих обучающихся</a></li>
+                                    <li ><a href="{{ route('registration') }}">Регистрация пользователей</a></li>
+                                    <li ><a href="{{ route('admin.appendingStudents') }}">Добавление поступающих обучающихся</a></li>
                                     <li ><a href="#">Добавление поступающих книг</a></li>
-                                <!-- <li ><a href="#">Редактирование книг</a></li> -->
+                                    <li ><a href="#">Редактирование книг</a></li>
                                     <li ><a href="#">Формирование отчета</a></li>
                                     <li ><a href="#">Предоставление прав пользователям</a></li>
-                                    <li ><a href="#">Загрузка материалов</a></li>
+                                    <li ><a href="/admin/book/create">Загрузка материалов</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -19,15 +19,19 @@ Route::group(['namespace' => 'Auth'], function() {
 
     Route::post('/login', 'LoginController@login')->name('login');
     Route::post('/logout', 'LoginController@logout')->name('logout');
-    Route::get('/register', function () {
-        return view('admin.panel.registration');
+
+    Route::group(['prefix' => '/admin'], function (){
+
+        Route::get('/register', function () {
+            return view('admin.panel.registration');
+        })->name('registration');
+        Route::post('/register', 'RegisterController@register');
     });
-    Route::post('/register', 'RegisterController@register');
 });
 
 Route::get('/search', 'HomeController@search')->name('user.search');
 
-Route::group(['prefix' => '/admin', 'namespace' => 'Admin' /*, 'middleware' => 'auth'*/], function() {
+Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'middleware' => ['auth','role:admin']], function() {
     
     Route::get('/', 'AdminController@index')->name('admin.index');
 
@@ -35,6 +39,11 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Admin' /*, 'middleware' => '
     Route::resource('/book', 'BookController', ['as' => 'admin']);
 
     Route::get("/book/page/{page}",'BookController@index',['as'=>'admin']);
+
+    Route::get("/students/append",function (){
+        return view('admin.panel.appendStudents');
+    })->name('admin.appendingStudents');
+    Route::post("/students/append",'AdminController@studentsAppend',['as'=>'admin']);
 
 });
 

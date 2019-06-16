@@ -57,6 +57,8 @@ class RegisterController extends Controller
             "role.min" => "Код изменен, повторите попытку позже",
             "role.max" => "Код изменен, повторите попытку позже",
             "reg_password.required" => "Введите пароль!!!",
+            "reg_password.min" => "Длина пароля не менее 8 символов!!!",
+            "reg_password.confirmed" => "Пароли не совпадают"
         ];
 
         return Validator::make($data, [

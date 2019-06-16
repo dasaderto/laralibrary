@@ -15,8 +15,9 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('quantity');
-            $table->year('date');
+            $table->string('class');
+            $table->integer('quantity')->default('0');
+            $table->year('date')->default(date('Y'));
             /**
              * таблица для отчетности, заказ книг для опреленных классов обучающихся, id это класс, количество книг
              * будет в зависимости от количества обучающихся, и текущий год для переброса учеников
